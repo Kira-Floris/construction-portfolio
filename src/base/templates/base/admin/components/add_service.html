@@ -1,0 +1,68 @@
+{% extends 'admin.html'%}
+{% block admin_title%}Services | Add{% endblock admin_title%}
+{%block admin%}
+<div class="container form-container">
+	<p class="h1">Services:</p>
+	{%if messages%}
+		{%for message in messages %}
+			<div class="bg-info">{{message}}</div>
+		{%endfor%}
+	{%endif%}
+	<form method="POST" action="" class="row" enctype="multipart/form-data">
+		{%csrf_token%}
+		<table class="table">
+			{%for field in form%}
+			<tr>
+				<th scope="row">{{field.label_tag}}</th>
+				<td>{{field}}</td>
+				{{field.error}}
+			</tr>
+			{%endfor%}
+		</table>
+		<input type="submit" name="submit" class="btn btn-primary">
+		{% if form.errors%}
+		<div class="error bg-danger">
+			<p>{{form.errors|capfirst}}</p>
+		</div>
+		{% endif%}
+	</form>
+</div>
+<style>
+	textarea{
+		width: 400px;
+		height: 100px;
+		object-fit: cover;
+	}
+	.form-container{
+		margin: 10px;
+		margin-left: auto;
+		margin-right: auto;
+		padding: 10px;
+	}
+	.btn{
+		width: 100px;
+		margin-right: auto;
+		margin-left: auto;
+	}
+	.error{
+		margin-top: 10px;
+		border: 1px solid grey;
+		border-radius: 5px;
+		margin-left: auto;
+		margin-right: auto;
+	}
+	.errorlist{
+		list-style-type: none; 
+		list-style
+	}
+	.errorslist ul{
+		color: red;
+	}
+	@media(max-width:768px){
+		textarea{
+			width: 200px;
+			height: 200px;
+		}
+	}
+</style>
+{%endblock admin%}

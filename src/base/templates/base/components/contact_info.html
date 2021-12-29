@@ -1,0 +1,29 @@
+<div class="contact row">
+	<div class="contact-info col-xl-12 col-lg-12 col-md-6 col-sm-12">
+		<p class="h1">Contact Us</p>
+		<p><a href="tel:{{webinfo.telephone}}"><span><i class="fas fa-phone-alt"></i> {{webinfo.telephone}}</span></a></p>
+		<p><a href="mailto:{{webinfo.email}}"><span><i class="fas fa-envelope"></i>
+		{{webinfo.email}}</span></a></p>
+	</div>
+	<div class="follow-us col-xl-12 col-lg-12 col-md-6 col-sm-12">
+		<p class="h1">Follow Us</p>
+		<a href="{{webinfo.instagram}}"><span><i class="fab fa-instagram"></i></span></a>
+		<a href="{{webinfo.twitter}}"><span><i class="fab fa-twitter"></i></span></a>
+		<a href="{{webinfo.facebook}}"><span><i class="fab fa-facebook"></i></span></a>
+	</div>
+</div>
+<style>
+	.contact{
+		border: 0.5px solid grey;
+		margin: 5px;
+		padding: 10px;
+	}
+	a{
+		color: black;
+		text-decoration: none;
+	}
+	.follow-us a{
+		font-size: 20px;
+		padding: 10px;
+	}
+</style>

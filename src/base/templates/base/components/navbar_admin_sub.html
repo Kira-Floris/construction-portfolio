@@ -1,0 +1,105 @@
+{% load static%}
+{%url 'dashboard' as dashboard%}
+{%url 'users' as users%}
+{%url 'webinfo' as websiteinfo%}
+{%url 'projectsList_admin' as projects%}
+{%url 'servicesList_admin' as services%}
+{%url 'sectorsList_admin' as sectors%}
+{%url 'typesList_admin' as types%}
+<div class="d-flex flex-column flex-shrink-0 p-3 bg-light h-100 w-100 m-0 text-white bg-dark offcanvas-link-names">
+  <div class="offcanvas-title navbar-brand d-inline-block align-center d-flex w-100" id="offcanvasNavbarLabel">
+    <button class="bg-dark border-0 offcanvas-menu" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
+      <span><i class="fas fa-bars text-white" style="font-size: 28px"></i></span>
+    </button>
+    <div class="offcanvas-profile clearfix col-12">
+      <img src="{{webinfo.image.url}}" width="30" height="30" alt="{{webinfo.name|capfirst}} logo">
+      <span class="links_name">{{webinfo.name|capfirst}}</span>
+      <button type="button" class="btn text-white text-reset align-right offcanvas-close" data-bs-dismiss="offcanvas"><i class="fas fa-times display-6"></i></button>
+    </div>
+  </div>  
+  <hr>
+  <ul class="nav nav-pills flex-column mb-auto h4">
+    <li class="nav-item {% if request.path == dashboard %}active{%endif%}"">
+      <a href="{%url 'dashboard'%}" class="nav-link" title="Dashboard" data-bs-toggle="tooltip" data-bs-placement="right">
+        <i class="fas fa-chart-line"></i>
+        <span class="links_name">Dashboard</span>
+      </a>
+    </li>
+    {%if request.user.role == 'Admin'%}
+    <li class="nav-item {% if request.path == users %}active{%endif%}">
+      <a href="{%url 'users'%}" class="nav-link" title="Website Users" data-bs-toggle="tooltip" data-bs-placement="right">
+        <i class="fas fa-users"></i>
+        <span class="links_name">People</span>
+      </a>
+    </li>
+    <li class="nav-item {% if request.path == websiteinfo %}active{%endif%}">
+      <a href="{%url 'webinfo'%}" class="nav-link" title="Website Info" data-bs-toggle="tooltip" data-bs-placement="right">
+        <i class="fas fa-info-circle"></i>
+        <span class="links_name">Website</span>
+      </a>
+    </li>
+    {%endif%}
+    <li class="nav-item {% if request.path == projects %}active{%endif%}">
+      <a href="{%url 'projectsList_admin'%}" class="nav-link" title="Projects" data-bs-toggle="tooltip" data-bs-placement="right">
+        <i class="fas fa-hard-hat"></i>
+        <span class="links_name">Projects</span>
+      </a>
+    </li>
+    <li class="nav-item {% if request.path == services %}active{%endif%}">
+      <a href="{%url 'servicesList_admin'%}" class="nav-link" title="Services" data-bs-toggle="tooltip" data-bs-placement="right">
+        <i class="fas fa-concierge-bell"></i>
+        <span class="links_name">Services</span>
+      </a>
+    </li>
+    <li class="nav-item {% if request.path == sectors %}active{%endif%}">
+      <a href="{%url 'sectorsList_admin'%}" class="nav-link" title="Sectors" data-bs-toggle="tooltip" data-bs-placement="right">
+        <i class="fas fa-industry"></i>
+        <span class="links_name">Sectors</span>
+      </a>
+    </li>
+    <li class="nav-item {% if request.path == types %}active{%endif%}">
+      <a href="{%url 'typesList_admin'%}" class="nav-link" title="Types" data-bs-toggle="tooltip" data-bs-placement="right">
+        <i class="fas fa-layer-group"></i>
+        <span class="links_name">Types</span>
+      </a>
+    </li>
+  </ul>
+  <hr>
+  <div class="dropdown text-white">
+    <a href="#" class="d-flex align-items-center link-light text-decoration-none dropdown-toggle" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
+      <img src="{{request.user.profile.url}}" alt="" width="32" height="32" class="rounded-circle me-2">
+      <strong class="links_name">{{request.user.username}}</strong>
+    </a>
+    <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
+      <li><a class="dropdown-item" href="{%url 'profile'%}">Profile</a></li>
+      <li><hr class="dropdown-divider"></li>
+      <li><a class="dropdown-item" href="{%url 'logout'%}">Sign out</a></li>
+    </ul>
+  </div>
+</div>
+<style>
+  .nav li.active{
+    border-bottom: 5px solid #0ED6FF;
+    border-radius: 8px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding-left: 0;
+    padding-right: 0;
+  }
+</style>
+<script>
+  $(document).ready(function(divClose){
+    $(".offcanvas-profile").hide();
+    $(".offcanvas-close").hide();
+    $(".offcanvas-link-names").find(".links_name").hide();
+    $(".offcanvas-menu").click(function(){
+      setTimeout(function(){
+        $(".offcanvas-menu").hide();
+        $(".offcanvas-profile").show();
+        $(".offcanvas-close").show();
+        $(".offcanvas-link-names").find(".links_name").show();
+      }, 100);
+    });
+  })
+  
+</script>

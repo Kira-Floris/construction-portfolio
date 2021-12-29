@@ -1,0 +1,40 @@
+{% extends 'admin.html' %} {%block admin_title%}Register New User{%endblock admin_title%}
+{%block admin%}
+<section class="container">
+	<p class="h1">Register new User</p>
+	<hr>
+	<form method="POST" action="">
+		{% csrf_token %}
+		<table class="table">
+			{% for field in form %}
+				<tr>
+					<th scope="col">{{field.label}}</th>
+					<td>{{field}}</td>
+				</tr>
+			{% endfor%}
+		</table>
+		{%if form.errors%}
+			<div class="error text-light bg-danger">
+				<p>{{form.errors|capfirst}}</p>
+			</div>
+		{%endif%}
+		<input type="submit" name="submit" class="btn btn-primary">
+	</form>
+</section>
+<style>
+	.error{
+		margin-top: 10px;
+		border: 1px solid grey;
+		border-radius: 5px;
+		margin-left: auto;
+		margin-right: auto;
+	}
+	.errorlist{
+		list-style-type: none; 
+		list-style
+	}
+	.errorslist ul{
+		color: red;
+	}
+</style>
+{%endblock admin%}

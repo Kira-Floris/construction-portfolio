@@ -1,0 +1,64 @@
+{% extends 'admin.html' %} {%block admin_title%}Types{%endblock admin_title%}
+{%block admin%}
+<section class="container">
+	{%if request.user.role == 'Admin' or request.user.role == 'Manager' %}
+	<a class="nav-link d-flex" href="{% url 'typesCreate_admin' %}">
+		<i class="far fa-plus-square fa-3x"></i>
+	</a>
+	<p class="">Create A New Type</p>
+	<hr>
+	{%endif%}
+	{%if messages%}
+		{%for message in messages %}
+			<div class="bg-info">{{message}}</div>
+		{%endfor%}
+	{%endif%}
+	{%if types %}
+		<div class="table-responsive px-1">
+			<table class="table types-table">
+				<thead>
+					<tr>
+						<th scope="col">#</th>
+						<th scope="col">Title</th>
+						<th scope="col">Description</th>
+						<th scope="col">Created By</th>
+						{%if request.user.role == 'Admin' or request.user.role == 'Manager' %}
+						<th scope="col">Update</th>
+						<th scope="col">Delete</th>
+						{%endif%}
+					</tr>
+				</thead>
+				<tbody>
+					{%for type in types%}
+						<tr>
+							<th scope="row">{{forloop.counter}}</th>
+							<td>{{type.title|capfirst}}</td>
+							<td>
+								<p class="type-description-more">{{type.description|capfirst}}</p>
+								</td>
+							<td>{{type.created_by|capfirst}}</td>
+							{%if request.user.role == 'Admin' or request.user.role == 'Manager' %}
+							<td><a href="{% url 'typesUpdate_admin' pk=type.id%}" class="btn btn-primary">Update</a></td>
+							<td><a href="{% url 'typesDelete_admin' pk=type.id%}" class="btn btn-danger">Delete</a></td>
+							{%endif%}
+
+					{% endfor%}
+				</tbody>
+			</table>
+		</div>
+	{%else%}
+		{% include 'base/components/none.html' with object='types'%}
+	{%endif%}
+
+</section>
+<script>
+	$(document).ready(function(){
+		$('.types-table').DataTable();
+	})
+</script>
+<style>
+	.typesList-table{
+		width: 100%
+	}
+</style>
+{%endblock admin%}

@@ -1,0 +1,102 @@
+{% load static%}
+{%url 'home' as home%}
+{%url 'about-us' as about%}
+{%url 'services_client' as services%}
+{%url 'projects_client' as projects%}
+{%url 'contact' as contact%}
+<nav class="navbar navbar-expand-lg p-md-1 fixed-top navigation-bar" id="navigation-bar">
+  <div class="container">
+    <a class="navbar-brand d-inline-block align-center text-white logo" style="cursor: pointer" href="{%url 'home'%}">
+      <img src="{{webinfo.image.url}}" width="30" height="30" alt="{{webinfo.name|capfirst}} logo">
+      {{webinfo.name|capfirst}}
+    </a>
+    <button
+      type="button"
+      class="navbar-toggler"
+      data-bs-target="#navbarNav"
+      data-bs-toggle="collapse"
+      aria-controls="navbarNav"
+      aria-expanded="false"
+      aria-lable="Toggle Navbar"
+    >
+      <span><i class="fas fa-bars text-white" style="font-size: 2.5rem"></i></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item {% if request.path == home %}active{%endif%}">
+          <a href="{%url 'home'%}" class="nav-link">Home</a>
+        </li>
+        <li class="nav-item {% if request.path == about %}active{%endif%}">
+          <a href="{%url 'about-us'%}" class="nav-link">About Us</a>
+        </li>
+        <li class="nav-item {% if request.path == services %}active{%endif%}">
+          <a href="{% url 'services_client' %}" class="nav-link">Services</a>
+        </li>
+        <li class="nav-item {% if request.path == projects %}active{%endif%}">
+          <a href="{% url 'projects_client' %}" class="nav-link">Projects</a>
+        </li>
+        <li class="nav-item {% if request.path == contact %}active{%endif%}">
+          <a href="{%url 'contact'%}" class="nav-link">Contact Us</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<style>
+  .navigation-bar{
+    background: linear-gradient(to bottom, rgba(0,0,0, 0.8), rgba(0,0,0,0.1));
+    backdrop-filter: blur(0.5rem);
+    min-height: 75px;
+    font-size: 1.2rem;
+  }
+  .navigation-bar .logo{
+    font-size: 1.8rem;
+  }
+  .navbar ul li a{
+    color: white!important;
+    transition: .5s;
+  }
+  .navbar ul li.active a{
+    color: #15B2BC!important;
+    padding-left: 1px; 
+    font-weight: bold;
+    border-bottom: 1px solid #5AA7CF;
+  }
+  .nav-link:hover{
+    color: #15B2BC!important;
+  }
+  .scrolling-active{
+    background: linear-gradient(to bottom, rgba(0,0,0, 0.8), rgba(0,0,0,0.6))!important;
+    backdrop-filter: blur(1rem)!important;
+  }
+  @media(max-width: 992px){
+    .navbar ul{
+      margin-top: 5px;
+    }
+  }
+</style>
+<script>
+  $(document).ready(function(){
+    $(document).click('.navbar ul li', function(){
+      $(this).addClass('active').siblings().removeClass('active');
+    });
+    var isNavOpen = false;
+    $('.navbar-toggler').click(function(){
+      isNavOpen = !isNavOpen;
+      if(isNavOpen){
+        $('.navigation-bar').addClass('scrolling-active');
+      }
+      else{
+        if(window.scrollY > 0){}
+        else{
+          $('.navigation-bar').removeClass('scrolling-active');
+        }
+      }
+    })
+    window.addEventListener('scroll', function(){
+      let navbar = document.getElementById('navigation-bar');
+      let windowPosition = window.scrollY > 0;
+      navbar.classList.toggle('scrolling-active', windowPosition);
+    })
+  })
+</script>

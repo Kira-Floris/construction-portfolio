@@ -1,0 +1,130 @@
+{% extends 'admin.html' %}
+{% block admin_title%}Projects{%endblock admin_title%}
+{% block admin%}
+<section>
+	<a class="d-flex" href="{% url 'projectsCreate_admin' %}">
+		<i class="far fa-plus-square fa-3x"></i>
+	</a>
+	<p class="">Create A New Project</p>
+	<hr>
+	{%if messages%}
+		{%for message in messages %}
+			<div class="bg-info">{{message}}</div>
+		{%endfor%}
+	{%endif%}
+	{%if messages%}
+		{%for message in messages %}
+			<div class="error bg-info">{{message}}</div>
+		{%endfor%}
+	{%endif%}
+	{%if projects%}
+	<div class="block-around">
+	<div class="table-responsive px-1">
+		<table class="table table-hover projects-table" cellspacing="0">
+			<thead>
+				<tr>
+					<th scope="col">#</th>
+					<th scope="col">Feature</th>
+					<th scope="col">Title</th>
+					<th scope="col">Company</th>
+					<th scope="col">Value</th>
+					<th scope="col">Sector</th>
+					<th scope="col">Type</th>
+					<th scope="col">Services</th>
+					<th scope="col">Created By</th>
+					<th scope="col">Update</th>
+					<th scope="col">Delete</th>
+				</tr>
+			</thead>
+			<tbody>
+				{%for project in projects%}
+					<tr>
+						<th scope="row">{{forloop.counter}}</th>
+						<td>
+							<div class="projectlist-image"><img src="{{project.feature.url}}" alt='{{project.title}}'></div></td>
+						<td>
+							<a href="{% url 'projectsDetail_admin' pk=project.id %}"><span class='tt-project' data-bs-placement='bottom' title='{{project.description|capfirst}}'>
+							{{project.title|capfirst}}
+							</span></a></td>
+						<td>{{project.company|capfirst}}</td>
+						<td>{{project.value|capfirst}}</td>
+						<td>
+							<span class='tt-sector' data-bs-placement='bottom' title='{{project.sector.description|capfirst}}'>
+							{{project.sector|capfirst}}
+							</span>
+						</td>
+						<td>
+							<span class='tt-type' data-bs-placement='bottom' title='{{project.type.description|capfirst}}'>
+							{{project.type|capfirst}}
+							</span>
+						</td>
+						<td>
+						{% for service in project.services.all%}
+							<span class='tt-service' data-bs-placement='bottom' title='{{service.description|capfirst}}'>
+							{{service.title|capfirst}}
+							</span><br>
+						{%endfor%}
+						</td>
+						<td>{{project.created_by|capfirst}}</td>
+						<td><a href="{% url 'projectsUpdate_admin' pk=project.id %}" class="btn btn-primary">Update</a></td>
+						<td>
+							<a href="{% url 'projectsDelete_admin' pk=project.id%}" class="btn btn-danger">Delete</a>
+						</td>
+
+				{% endfor%}
+			</tbody>
+		</table>
+	</div>
+	</div>
+	{%else%}
+		{%include 'base/components/none.html' with object='projects'%}
+	{%endif%}
+</section>
+<script>
+	$(document).ready(function(){
+		$('.projects-table').DataTable();
+	});
+	const tooltipsSector = document.querySelectorAll('.tt-sector')
+	tooltipsSector.forEach(t => {
+		new bootstrap.Tooltip(t)
+	})
+	const tooltipsType = document.querySelectorAll('.tt-type')
+	tooltipsType.forEach(t => {
+		new bootstrap.Tooltip(t)
+	})
+	const tooltipsProject = document.querySelectorAll('.tt-project')
+	tooltipsProject.forEach(t =>{
+		new bootstrap.Tooltip(t)
+	})
+	const tooltipsService = document.querySelectorAll('.tt-service')
+	tooltipsService.forEach(t =>{
+		new bootstrap.Tooltip(t)
+	})
+</script>
+<style>
+	.block-around{
+		height: auto;
+	}
+	.projectlist-image{
+		width: 200px;
+		height: 200px;
+	}
+	.projectlist-image img{
+		width: 100%;
+		height: 200px;
+		border-radius: 5px;
+		border: .5px solid grey;
+		object-fit: cover;
+		display: block;
+	}
+	@media(max-width: 768px){
+		.projectlist-image{
+			width: 120px;
+			height: 120px;
+		}
+		.projectlist-image img{
+			height: 100px;
+		}
+	}
+</style>
+{%endblock admin%}

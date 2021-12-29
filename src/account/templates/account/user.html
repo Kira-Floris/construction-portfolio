@@ -1,0 +1,88 @@
+{%extends 'admin.html'%}
+{%load static%}
+{%block admin_title%}User Update
+{%endblock admin_title%}
+{%block admin%}
+<section class="container">
+	<div class="row">
+		<div class="user_data col-xl-6 col-lg-6 col-md-12 col-sm-1">
+			<p class="h1">{{user.username}}</p>
+			<div class="media">
+				{%if user.profile%}
+				<img src="{{user.profile.url}}" alt="{{user.username}}">
+				{%else%}
+				<img src="{% static 'images/default.jpg'%}" alt="default">
+				{%endif%}
+			</div>
+			<div class="contents">
+				<table class="table">
+					<tr>
+						<th scope="col">Email:</th>
+						<td>{{user.email}}</td>
+					</tr>
+					<tr>
+						<th scope="col">First Name:</th>
+						<td>{{user.first_name}}</td>
+					</tr>
+					<tr>
+						<th scope="col">Last Name:</th>
+						<td>{{user.last_name}}</td>
+					</tr>
+					<tr>
+						<th scope="col">Bio:</th>
+						<td>{{user.bio}}</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+		<br><br>
+		<div class="form_update col-xl-6 col-lg-6 col-md-12 col-sm-1">
+			<p class="h2">Panel:</p>
+			<hr>
+			<form method="POST" action="" enctype="multipart/form-data">
+				{%csrf_token%}
+				<table class="table table-borderless">
+				{%for field in form%}
+				<tr>
+					<th scope="col">{{field.label}}:</th>
+					<td>{{field}}</td>
+				</tr>
+				{%endfor%}
+			</table>
+			<button type="submit" name="submit" class="btn btn-primary">Update User</button>
+			<a href="{%url 'user_delete' pk=user.id%}" class="btn btn-danger">Delete User</a>
+			</form>
+			{% if form.errors%}
+			<div class="error bg-danger">
+				<p>{{form.errors|capfirst}}</p>
+			</div>
+			{% endif%}
+		</div>
+	</div>
+</section>
+<style>
+	.media{
+		width: 200px;
+		height: auto;
+	}
+	.media img{
+		width: 100%;
+		height: auto;
+		border-radius: 10px;
+		border: 1px solid grey;
+	}
+	.error{
+		margin-top: 10px;
+		border: 1px solid grey;
+		border-radius: 5px;
+		margin-left: auto;
+		margin-right: auto;
+	}
+	.errorlist{
+		list-style-type: none; 
+	}
+	.errorslist ul{
+		color: red;
+	}
+</style>
+{%endblock admin%}

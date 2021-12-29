@@ -1,0 +1,25 @@
+{% extends 'admin.html' %}{%block admin_title%}Forbidden{%endblock admin_title%} {% block admin %}
+<div class="container pt-5">
+    <p class="display-6 text-center">Sorry, this page is unavailable at your level...</p>
+    <p class="h4 text-center text-muted">Request your Admin to upgrade your role to view it.</p>
+    <p class="text-center display-7 h4 return" onClick="goBack()">Return Back</p>
+</div> 
+<script>
+	function goBack(){
+		window.history.back();
+	}
+</script>
+<style>
+	.return{
+		cursor: pointer;
+		color: #59D4F3;
+	}
+	.return:hover{
+		color: #59D4F3;
+		padding-top: 2px;
+		border-bottom: 1px solid grey;
+		border-radius: 5px;
+		box-shadow: 10px 10px 5px grey;
+	}
+</style>
+{% endblock admin %}

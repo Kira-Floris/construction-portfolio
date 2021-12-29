@@ -1,0 +1,318 @@
+{% extends 'admin.html'%}
+{%block admin%}
+<div class="container">
+	<p class="display-6 text-center"><u>Dashboard</u>:</p>
+	{%if messages%}
+		{%for message in messages %}
+			<div class="bg-info">{{message}}</div>
+		{%endfor%}
+	{%endif%}
+	<div class="row d-flex justify-content-center">
+    <div class="col-auto card border-dark rounded m-3 text-center" style="width: 15rem;">
+        <div class="card-body">
+          <h5 class="card-title h1">Projects</h5>
+          <h6 class="card-subtitle mb-2 text-muted font-weight-bold h1" style="font-size: 75px;">{{projects}}</h6>
+          <div class="row d-flex justify-content-center">
+            <a href="{%url 'projectsList_admin'%}" class="card-link col-auto p-0">All Projects</a>
+            {%if request.user.role == "Admin" or request.user.role == "Manager" or request.user.role == "Staff" %}
+            <a href="{%url 'projectsCreate_admin'%}" class="card-link col-auto p-0">New Project</a>
+            {%endif%}
+          </div>
+        </div>
+      </div>
+      <div class="col-auto card border-dark rounded m-3 text-center" style="width: 15rem;">
+        <div class="card-body">
+          <h5 class="card-title h1">Services</h5>
+          <h6 class="card-subtitle mb-2 text-muted font-weight-bold h1" style="font-size: 75px;">{{services}}</h6>
+          <div class="row d-flex justify-content-center">
+            <a href="{%url 'servicesList_admin'%}" class="card-link col-auto p-0">All Services</a>
+            {%if request.user.role == "Admin" or request.user.role == "Manager" %}
+            <a href="{%url 'servicesCreate_admin'%}" class="card-link col-auto p-0">New Service</a>
+            {%endif%}
+          </div>
+        </div>
+      </div>
+      <div class="col-auto card border-dark rounded m-3 text-center" style="width: 15rem;">
+        <div class="card-body">
+          <h5 class="card-title h1">Sector</h5>
+          <h6 class="card-subtitle mb-2 text-muted font-weight-bold h1" style="font-size: 75px;">{{sectors}}</h6>
+          <div class="row d-flex justify-content-center">
+            <a href="{%url 'sectorsList_admin'%}" class="card-link col-auto p-0">All Sectors</a>
+            {%if request.user.role == "Admin" or request.user.role == "Manager" %}
+            <a href="{%url 'sectorsCreate_admin'%}" class="card-link col-auto p-0">New Sector</a>
+            {%endif%}
+          </div>
+        </div>
+      </div>
+      <div class="col-auto card border-dark rounded m-3 text-center" style="width: 15rem;">
+        <div class="card-body">
+          <h5 class="card-title h1">Types</h5>
+          <h6 class="card-subtitle mb-2 text-muted font-weight-bold h1" style="font-size: 75px;">{{types}}</h6>
+          <div class="row d-flex justify-content-center">
+            <a href="{%url 'typesList_admin'%}" class="card-link col-auto p-0">All Types</a>
+            {%if request.user.role == "Admin" or request.user.role == "Manager" %}
+            <a href="{%url 'typesCreate_admin'%}" class="card-link col-auto p-0">New Type</a>
+            {%endif%}
+          </div>
+        </div>
+      </div>
+    </div>
+    {%if request.user.role == 'Admin' or request.user.role == 'Manager' %}
+    <div class="container d-flex justify-content-center">
+      <div class="card border-dark rounded m-3 text-center" style="width: 30rem;">
+        <div class="card-body">
+          <h5 class="card-title h1">Users</h5>
+          <h6 class="card-subtitle mb-2 text-muted font-weight-bold h1" style="font-size: 75px;">{{users.all}}</h6>
+          <div class="row d-flex justify-content-center">
+            <div class="card col-auto mx-1 px-5 border-primary">
+              <h5>Admins</h5>
+              <h4 class="text-primary">{{users.admins}}</h4>
+            </div>
+            <div class="card col-auto mx-1 px-5 border-success">
+              <h5>Managers</h5>
+              <h4 class="text-success">{{users.managers}}</h4>
+            </div>
+            <div class="card col-auto my-3 px-5 border-warning">
+              <h5>Staff</h5>
+              <h4 class="text-warning">{{users.staff}}</h4>
+            </div>
+          </div>
+          {%if request.user.role == 'Admin' %}
+          <div class="row d-flex justify-content-center">
+            <a href="{%url 'users'%}" class="card-link col-auto p-0">All Users</a>
+            <a href="{%url 'register'%}" class="card-link col-auto p-0">New User</a>
+          </div>
+          {%endif%}
+        </div>
+      </div>
+    </div>
+    {%endif%}
+</div>
+<hr>
+
+<div class="accordion accordion-flush" id="accordionFlushExample">
+  <h1 class="text-center">Documentation</h1>
+  <h3 class="text-center documentation-headers">Others</h3>
+  {%if request.user.role == "Admin" or request.user.role == "Manager"%}
+  <div class="accordion-item">
+    <h2 class="accordion-header border rounded" id="flush-headingOne">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+        Services Documentation
+      </button>
+    </h2>
+    <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+      <div class="accordion-body">
+        <h4 class="text-center text-danger">This option is only available for Managers and Admin roles.</h4>
+        <div>
+          <div>
+            <p><span class="documentation-titles">Create: </span>Using the navigation bar, click on the <a href="{%url 'servicesList_admin'%}">services icon</a>. On the top left, click on the <a href="{%url 'servicesCreate_admin'%}">plus/add icon</a> to create a new service. Follow the link, fill the form and submit.</p>
+            <p><span class="documentation-titles">Update: </span>To update a service, look for the service you want to update in the <a href="{%url 'servicesList_admin'%}">list</a>. On the far right, there is a button labelled <span class="text-primary">Update</span>, click on it to follow the link, make your changes and submit.</p>
+            <p><span class="documentation-titles">Delete: </span>To delete a service, look for the service you want to delete in the <a href="{%url 'servicesList_admin'%}">list</a>. On the far right, there is a button labelled <span class="text-danger">Delete</span>, click on it to follow the link, you will be prompted a question whether to delete or not, <span class="bold">By confirming it, all projects associated to the service will be deleted.</span>.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <div class="accordion-item">
+    <h2 class="accordion-header border rounded" id="flush-headingTwo">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+        Sectors Documentation
+      </button>
+    </h2>
+    <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
+      <div class="accordion-body">
+        <h4 class="text-center text-danger">This option is only available for Managers and Admin roles.</h4>
+        <div>
+          <div>
+            <p><span class="documentation-titles">Create: </span>Using the navigation bar, click on the <a href="{%url 'sectorsList_admin'%}">sectors icon</a>. On the top left, click on the <a href="{%url 'sectorsCreate_admin'%}">plus/add icon</a> to create a new sector. Follow the link, fill the form and submit.</p>
+            <p><span class="documentation-titles">Update: </span>To update a sector, look for the sector you want to update in the <a href="{%url 'sectorsList_admin'%}">list</a>. On the far right, there is a button labelled <span class="text-primary">Update</span>, click on it to follow the link, make your changes and submit.</p>
+            <p><span class="documentation-titles">Delete: </span>To delete a sector, look for the service you want to delete in the <a href="{%url 'sectorsList_admin'%}">list</a>. On the far right, there is a button labelled <span class="text-danger">Delete</span>, click on it to follow the link, you will be prompted a question whether to delete or not, <span class="bold">By confirming it, all projects associated to the sector will be deleted.</span>.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="accordion-item">
+    <h2 class="accordion-header border rounded" id="flush-headingThree">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+        Types Documentation
+      </button>
+    </h2>
+    <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
+      <div class="accordion-body">
+        <h4 class="text-center text-danger">This option is only available for Managers and Admin roles.</h4>
+        <div>
+          <div>
+            <p><span class="documentation-titles">Create: </span>Using the navigation bar, click on the <a href="{%url 'typesList_admin'%}">types icon</a>. On the top left, click on the <a href="{%url 'typesCreate_admin'%}">plus/add icon</a> to create a new type. Follow the link, fill the form and submit.</p>
+            <p><span class="documentation-titles">Update: </span>To update a type, look for the type you want to update in the <a href="{%url 'typesList_admin'%}">list</a>. On the far right, there is a button labelled <span class="text-primary">Update</span>, click on it to follow the link, make your changes and submit.</p>
+            <p><span class="documentation-titles">Delete: </span>To delete a type, look for the service you want to delete in the <a href="{%url 'typesList_admin'%}">list</a>. On the far right, there is a button labelled <span class="text-danger">Delete</span>, click on it to follow the link, you will be prompted a question whether to delete or not, <span class="bold">By confirming it, all projects associated to the type will be deleted.</span>.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {%endif%}
+  {% if request.user.role == "Admin" or request.user.role == "Manager" or request.user.role == "Staff" %}
+  <div class="accordion-item">
+    <h2 class="accordion-header border rounded" id="flush-headingFour">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFour" aria-expanded="false" aria-controls="flush-collapseFour">
+        Projects Documentation
+      </button>
+    </h2>
+    <div id="flush-collapseFour" class="accordion-collapse collapse" aria-labelledby="flush-headingFour" data-bs-parent="#accordionFlushExample">
+      <div class="accordion-body">
+        <h4 class="text-center text-danger">This option is available for Staff, Managers and Admin roles.</h4>
+        <div>
+          <div>
+            <p><span class="documentation-titles">Create: </span>Using the navigation bar, click on the <a href="{%url 'projectsList_admin'%}">projects icon</a>. On the top left, click on the <a href="{%url 'projectsCreate_admin'%}">plus/add icon</a> to create a new project. Follow the link, fill the form and submit. <br>
+            <span class="bold">After creating to the project, look for the project in the <a href="{%url 'projectsList_admin'%}">list</a> for more options about the project, like adding more pictures to the project.</span>
+            </p>
+
+            <p><span class="documentation-titles">View Project: </span>To update a project, look for the project you want to update in the <a href="{%url 'projectsList_admin'%}">list</a>. In the tile column, click on the title of the project you want to modify.</p>
+
+            <div class="inner-docs">
+              <p><span class="documentation-titles">Update: </span>Click on the button labelled <span class="text-primary">Update</span>, to follow the link, make your changes and submit.</p>
+              <p><span class="documentation-titles">Delete: </span>Click on the button labelled <span class="text-danger">Delete</span>, to follow the link, you will be prompted a question whether to delete or not.</p>
+              <p><span class="documentation-titles">Update/Edit: </span>Click on the button labelled <span class="text-primary">Update/Edit Gallery</span>, to follow the link. In here, choose one by one an image you want to add to the gallery, then click <span class="text-primary">Update Collection</span>.
+                <br>If you need to add more images, first update the collection, then re-click the <span class="text-primary">Update/Edit Gallery</span>, you will be given more options for adding more images.
+                <br>If you need to remove an image from the gallery, just select the delete image in the gallery and click on <span class="text-primary">Update Collection</span> 
+              </p>
+
+            </div>
+
+            <p><span class="documentation-titles">Update: </span>To update a project, look for the project you want to update in the <a href="{%url 'projectsList_admin'%}">list</a>. On the far right, there is a button labelled <span class="text-primary">Update</span>, click on it to follow the link, make your changes and submit.</p>
+
+            <p><span class="documentation-titles">Delete: </span>To delete a project, look for the service you want to delete in the <a href="{%url 'projectsList_admin'%}">list</a>. On the far right, there is a button labelled <span class="text-danger">Delete</span>, click on it to follow the link, you will be prompted a question whether to delete or not.</p>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {%endif%}
+  {%if request.user.role == "Admin"%}
+  <h3 class="text-center documentation-headers">Website Info</h3>
+  <div class="accordion-item">
+    <h2 class="accordion-header border rounded" id="flush-headingFive">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFive" aria-expanded="false" aria-controls="flush-collapseFive">
+        Website Information Documentation
+      </button>
+    </h2>
+    <div id="flush-collapseFive" class="accordion-collapse collapse" aria-labelledby="flush-headingFive" data-bs-parent="#accordionFlushExample">
+      <div class="accordion-body">
+        <h4 class="text-center text-danger">This option is available for Admin roles.</h4>
+        <div>
+          <div>
+            <p><span class="documentation-titles">Create: </span>Using the navigation bar, click on the <a href="{%url 'webinfo'%}">WebsiteInfo</a>.<br>
+              You will be prompted a form with details for the website, fill them and submit.
+              <span class="bold">All the details on the website will be set.</span>
+            </p>
+            <p><span class="documentation-titles">Update: </span>Using the navigation bar, click on the <a href="{%url 'webinfo'%}">WebsiteInfo</a>.<br>
+              You will be prompted a form with details for the website, make your changes and submit.
+              <span class="bold">All the details on the website will be changed.</span>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <h3 class="text-center documentation-headers">Users</h3>
+  <div class="accordion-item">
+    <h2 class="accordion-header border rounded" id="flush-headingSix">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseSix" aria-expanded="false" aria-controls="flush-collapseSix">
+        Users Documentation
+      </button>
+    </h2>
+    <div id="flush-collapseSix" class="accordion-collapse collapse" aria-labelledby="flush-headingSix" data-bs-parent="#accordionFlushExample">
+      <div class="accordion-body">
+        <h4 class="text-center text-danger">This option is available for Admin roles.</h4>
+        <div>
+          <div>
+            <p><span class="documentation-titles">Create: </span>Using the navigation bar, click on the <a href="{%url 'users'%}">Users</a>. On top left of the page, click on <a href="{%url 'register'%}">Add Icon</a>. Next, you will be prompted a user form to be filled by the user.<br> 
+              <span class="bold">After filling and submitting, the user will receive a verification mail on the provided email. They should click the link to verify.</span>
+            </p>
+            <p>
+              <span class="documentation-titles">Update/View: </span>Using the navigation bar, click on <a href="{%url 'users'%}">Users</a> and search for the user you want to update. Click on their username or on the button at the far end labelled <span class="text-primary">Update</span>. It will redirect you to a limited form to make changes to a users settings.
+              <div class="inner-docs">
+                <p class="bold">Only users with Display turned true are viewed in the <a href="{%url 'about-us'%}">About Us</a> page.</p>
+                <p class="bold">Only users with verified emails and is_staff turned true  are allowed to login the system.</p>
+              </div>
+            </p>
+            <p>
+              <span class="documentation-titles">Delete: </span>Using the navigation bar, click on <a href="{%url 'users'%}">Users</a> and search for the user you want to delete. Click on their username or on the button at the far end labelled <span class="text-danger">Delete</span>. It will redirect you to a limited form to make changes to a users settings or prompt you a message to confirm.
+            </p>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {%endif%}
+  {%if request.user.role == "Admin" or request.user.role == "Manager" or request.user.role == "Staff"%}
+  <h3 class="text-center documentation-headers">Profile</h3>
+  <div class="accordion-item">
+    <h2 class="accordion-header border rounded" id="flush-headingSeven">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseSeven" aria-expanded="false" aria-controls="flush-collapseSeven">
+        Profile Documentation
+      </button>
+    </h2>
+    <div id="flush-collapseSeven" class="accordion-collapse collapse" aria-labelledby="flush-headingSeven" data-bs-parent="#accordionFlushExample">
+      <div class="accordion-body">
+        <div>
+          <div>
+            <p>
+              <span class="documentation-titles">Update/View: </span>Using the navigation bar, click on your <a href="{%url 'profile'%}">profile</a> and click profile. Make changes to your profile and submit.
+            </p>
+            <p>
+              <span class="documentation-titles">Change Password: </span>Using the navigation bar, click on your <a href="{%url 'profile'%}">profile</a> and click profile. At the bottom, look for a button labelled <span class="text-secondary bold">Change Password</span> and click on it. Change the password and submit.
+            </p>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {%endif%}
+</div>
+<style>
+	.btn{
+		width: 100px;
+		margin-right: auto;
+		margin-left: auto;
+	}
+	.error{
+		margin-top: 10px;
+		border: 1px solid grey;
+		border-radius: 5px;
+		margin-left: auto;
+		margin-right: auto;
+	}
+	.errorlist{
+		list-style-type: none; 
+	}
+	.errorslist ul{
+		color: red;
+	}
+  .documentation-titles{
+    font-weight: bold;
+    text-decoration: underline;
+  }
+  .documentation a{
+    color:#12AED6;
+  }
+  .documentation .bold{
+    font-weight: bold;
+  }
+  .inner-docs{
+    padding: 20px;
+    margin-left: 10px;
+  }
+  .bold{
+    font-weight: bold;
+  }
+  .documentation-headers{
+    margin-top: 20px;
+  }
+</style>
+{%endblock admin%}

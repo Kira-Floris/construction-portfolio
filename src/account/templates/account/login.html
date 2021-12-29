@@ -1,0 +1,64 @@
+{%extends 'client.html'%}
+{%block title%}Login{%endblock title%}
+{%block client%}
+<section class="d-flex justify-content-center login-form w-100 mx-sm-0 my-4">
+	<div>
+		<a href="{%url 'home'%}" class="text-center">Back to Home Page</a>
+		<p class="h1 text-center">Login</p>
+		<hr>
+		{%if messages%}
+			{%for message in messages %}
+				<div class="bg-info">{{message}}</div>
+			{%endfor%}
+		{%endif%}
+		<form method="POST" action='' class="w-100">
+			{%csrf_token%}
+			<table class="table">
+				{%for field in form%}
+				<tr>
+					<th scope="col">{{field.label}}:</th>
+					<td>{{field}}</td>
+				</tr>
+				{%endfor%}
+			</table>
+			{%if form.errors%}
+			<div class="error bg-danger">
+				<p>{{form.errors|capfirst}}</p>
+			</div>
+			{%endif%}
+			{%if request.GET.next%}
+				<input type="hidden" name="next" value="{{request.GET.next}}">
+			{%endif%}
+			<div class="d-flex justify-content-center">
+				<button class="btn btn-primary mx-2 px-5" type="submit" name="submit">Login</button>
+				<a class="link mx-2" href="{%url 'password_reset'%}">Forgot Password?</p>
+			</div>
+		</form>
+	</div>
+</section>
+<style>
+	.login-form{
+		width: 500px;
+		height: auto;
+		margin-top: 10px;
+	}
+	.error{
+		margin-top: 10px;
+		border: 1px solid grey;
+		border-radius: 5px;
+		margin-left: auto;
+		margin-right: auto;
+	}
+	.errorlist{
+		list-style-type: none; 
+	}
+	.errorslist ul{
+		color: red;
+	}
+	@media(max-width: 768px){
+		.login-form{
+			text-align: center;
+		}
+	}
+</style>
+{%endblock client%}

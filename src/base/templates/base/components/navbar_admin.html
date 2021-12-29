@@ -1,0 +1,35 @@
+<script>
+  $(document).click(function(){
+    if($(".offcanvas").hasClass("show")){
+      setTimeout(function(){
+        $(".offcanvas-menu").hide();
+        $(".offcanvas-profile").show();
+        $(".offcanvas-close").show();
+        $(".offcanvas-link-names").find(".links_name").show();
+      }, 100);
+    }else{
+        $(".offcanvas-menu").show();
+        $(".offcanvas-profile").hide();
+        $(".offcanvas-close").hide();
+        $(".offcanvas-link-names").find(".links_name").hide();
+    }
+  })
+</script>
+<main>
+  <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+    <div class="offcanvas-body text-white bg-dark">
+      {%include 'base/components/navbar_admin_sub.html'%}
+    </div>
+  </div>
+
+
+  <div class="bg-light fixed-top text-white bg-dark mx-0 justify-content-center" id="small_nav">
+    {%include 'base/components/navbar_admin_sub.html'%}
+  </div>
+</main>
+<style>
+  #small_nav{
+    width: 4.5rem;
+    height: 100vh;
+  }
+</style>

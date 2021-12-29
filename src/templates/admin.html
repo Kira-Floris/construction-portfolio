@@ -1,0 +1,42 @@
+<!-- this template acts as a base for admin views -->
+{% extends 'main.html'%}
+{%block title%}
+	Dashboard | {%block admin_title%}{%endblock admin_title%}
+{%endblock title%}
+{% block content%}
+<div class="admin">
+	{%include 'base/components/navbar_admin.html'%}
+	<div class="main-body px-5 mb-5 h-100">
+		<header class="admin_header pb-3 mb-4 border-bottom bg-light sticky-top">
+	      <a href="/" class="d-flex align-items-center text-dark text-decoration-none h1">
+	        <span class="h1">{{webinfo.name}}</span>
+	      </a>
+	      <span id="get_title" class="display-7"></span>
+	    </header>
+	    <div class="admin-container">
+		{% block admin %} {% endblock admin %}
+		</div>
+	</div>	
+</div>
+<script>
+	var title = document.getElementById('get_title');
+	title.innerText = document.title;
+</script>
+<style>
+	.admin_header{
+		border-radius: 3px;
+		margin-left: 4.5rem;
+	}
+	.admin-container{
+		margin-left: 4.5rem;
+	}
+	@media(max-width: 768px){
+		.main-body{
+			margin-left: 40px;
+		}
+		.admin-container, .admin_header{
+			margin-left: 2.25rem;
+		}
+	}
+</style>
+{% endblock content %}

@@ -1,0 +1,21 @@
+<!-- this template acts as a base for client views -->
+{% extends 'main.html'%} {% block content%}{% include 'base/components/navbar_client.html' %}
+<div class="main-body-content">
+<main class="main-body">{% block client %} {% endblock client %}</main>
+{%include 'base/components/footer.html'%}
+</div>
+<style>
+	.main-body{
+		min-height: calc(80vh);
+	}
+	.main-body-content{
+		padding-top: 0;
+		margin-top: 0;
+	}
+</style>
+<script>
+	$(document).ready(function(){
+		$('.banner .card-title').attr("style","padding-top:100px");
+	})
+</script>
+{% endblock content %}

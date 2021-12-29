@@ -1,0 +1,93 @@
+{% load static %}
+{% load widget_tweaks%}
+{% load crispy_forms_tags%}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{webinfo.name}} | {% block title %} {% endblock title %}</title>
+    <link rel="icon" href="{{webinfo.image.url}}" type="image/x-icon">
+    <link
+      rel="stylesheet"
+      href=" {% static 'css/bootstrap.min.css' %} "
+      media="all"
+    />
+    <link
+      rel="stylesheet"
+      href="{% static 'css/swiper-bundle.min.css'%}"
+    />
+    <link rel="stylesheet" href="{%static 'css/stylesheet.css'%}" />
+    <link rel="stylesheet" href="{% static 'css/all.min.css'%}"/>
+    <link rel="stylesheet" href="{% static 'css/jquery.dataTables.min.css' %}">
+    <script
+      type="text/javascript"
+      src="{% static 'js/jquery.min.js' %}"
+    ></script>
+    <script src="{%static 'js/swiper-bundle.min.js'%}"></script>
+    <script type="text/javascript" src="{% static 'js/jquery.dataTables.min.js'%}"></script>
+  </head>
+
+  <body>  
+    <div class="page-content-container">
+    {% block content %} {% endblock content %}
+    </div>
+    <div class="loader-container">
+      {%include 'base/components/loader.html'%}
+    </div>
+  </body>
+  <script>
+    var loader = document.querySelector('.loader-container');
+    var content = document.querySelector('.page-content-container');
+    content.style.display = 'none';
+    window.addEventListener("load", setTimeout(function(){
+      loader.style.display = 'none';
+      content.style.display = 'block';
+    }), 5000);
+  </script>
+
+  <script type="text/javascript" src="{%static 'js/popper.min.js'%}"></script>
+  <script src="{% static 'js/bootstrap.min.js' %} "></script>
+  <script type="text/javascript" src="{%static 'js/jquery.dataTables.bootstrap5.min.js'%}"></script>
+  <script type="text/javascript" src="{%static 'js/dataTables.responsive.min.js'%}"></script>
+  <script type="text/javascript" src="{% static 'js/main.js'%}"></script>
+</html>
+<style>
+  html{
+    scroll-behavior: smooth;
+  }
+  .main-body-content .h1, .main-body-content .h2, .main-body-content .h3, .main-body-content .h4, .main-body-content .h5, .main-body-content .h6, .main-body-content h1, .main-body-content h2, .main-body-content h3, .main-body-content h4, .main-body-content h5, .main-body-content h6, .main-body-content .display-1, .main-body-content .display-2, .main-body-content .display-3, .main-body-content .display-4, .main-body-content .display-5, .main-body-content .display-6{
+    font-weight: 300;
+    font-family: Stencil Std, fantasy;
+    font-stretch: ultra-expanded !important;
+    letter-spacing: 2px;
+  }
+  .main-body-content p, span, a, li, ul, th, td, button, .btn{
+    font-family: sans-serif;
+    letter-spacing: 0;
+  }
+  .webinfo-name{
+    font-family: Optima, sans-serif;
+    font-size: 1.1em;
+    font-style: oblique; 
+  }
+  ::-webkit-scrollbar-track
+  {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    border-radius: 10px;
+    background-color: #1D1E1E;
+  }
+
+  ::-webkit-scrollbar
+  {
+    width: 15px;
+    background-color: #1D1E1E;
+  }
+
+  ::-webkit-scrollbar-thumb
+  {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+    background-color: #555;
+  }
+</style>

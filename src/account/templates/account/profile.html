@@ -1,0 +1,65 @@
+{%extends 'admin.html'%}
+{%load static%}
+{%block admin_title%}Profile{%endblock admin_title%}
+{%block admin%}
+<section class="container profile">
+	<p class="h1">Profile</p>
+	<hr>
+	{%if messages%}
+		{%for message in messages %}
+			<div class="bg-info">{{message}}</div>
+		{%endfor%}
+	{%endif%}
+
+	<div class="media">
+		{%if user.profile%}
+		<img src="{{user.profile.url}}">
+		{%else%}
+		<img src="{%static 'images/default.jpg'%}">
+		{%endif%}
+	</div>
+	<form method='POST' action='' enctype="multipart/form-data">
+		{%csrf_token%}
+		<table class="table">
+			{%for field in form%}
+			<tr>
+				<th scope="col">{{field.label}}</th>
+				<td>{{field}}</td>
+			</tr>
+			{%endfor%}
+		</table>
+		<button type="submit" name="submit" class="btn btn-primary">Update</button>
+		<a href="{%url 'password_change'%}" class="btn btn-secondary">Change Password</a>
+	</form>
+	{% if form.errors%}
+		<div class="error bg-danger">
+			<p>{{form.errors|capfirst}}</p>
+		</div>
+	{% endif%}
+</section>
+<style>
+	.media{
+		width: 200px;
+		height: auto;
+	}
+	.media img{
+		width: 100%;
+		height: 100%;
+		border: 1px solid grey;
+		border-radius: 10px;
+	}
+	.error{
+		margin-top: 10px;
+		border: 1px solid grey;
+		border-radius: 5px;
+		margin-left: auto;
+		margin-right: auto;
+	}
+	.errorlist{
+		list-style-type: none; 
+	}
+	.errorslist ul{
+		color: red;
+	}
+</style>
+{%endblock admin%}

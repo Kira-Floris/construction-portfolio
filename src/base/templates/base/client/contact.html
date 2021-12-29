@@ -1,0 +1,137 @@
+{%extends 'client.html'%}
+{%load static%}
+{%block title%}Contact Us{%endblock title%}
+{%block client%}
+<section>
+	<div class="banner">
+		<div class="card">
+			<img src="{%static 'images/front/contact.jpg'%}" alt="about-us">
+			<div class="card-body">
+				<p class="card-title h1 display-7 text-light">Contact Us</p>
+			</div>
+		</div>
+	</div>
+	{%if messages%}
+		{%for message in messages %}
+			<div class="bg-info container">{{message}}</div>
+		{%endfor%}
+	{%endif%}
+	<div class="contact-details container row">
+		<div class="info col-lg-6 col-xl-6 col-md-6 col-12">
+			<h1>Get in touch</h1>
+			<p class="main-info-text">
+				Have a question about our company or services?<br>Need to get in touch with the team?<br>
+				We are all ears.
+			</p>
+			<div class="contact-info row">
+				<p class="col-xl-4 col-lg-4 col-md-12 col-sm-12"><a href="tel:{{webinfo.telephone}}"><span><i class="fas fa-phone-alt"></i> {{webinfo.telephone}}</span></a></p>
+				<p class="col-xl-4 col-lg-4 col-md-12 col-sm-12"><a href="mailto:{{webinfo.email}}"><span><i class="fas fa-envelope"></i>
+				{{webinfo.email}}</span></a></p>
+				<div class="social-media col-xl-4 col-lg-4 col-md-12 col-sm-12">
+					<a href="{{webinfo.instagram}}"><span><i class="fab fa-instagram"></i></span></a>
+					<a href="{{webinfo.twitter}}"><span><i class="fab fa-twitter"></i></span></a>
+					<a href="{{webinfo.facebook}}"><span><i class="fab fa-facebook"></i></span></a>
+				</div>
+			</div>
+		</div>
+		<div class="contact-form col-lg-6 col-xl-6 col-md-6 col-12">
+			<form method="POST" action="" class="row" enctype="multipart/form-data">
+				{%csrf_token%}
+				<table class="table">
+					{%for field in form%}
+					<tr>
+						<th scope="row">{{field.label|capfirst}}</th>
+						<td>
+							{{field}}
+						</td>
+					</tr>
+					{%endfor%}
+				</table>
+				<button class="btn btn-secondary" type="submit">Send Message</button>
+			</form>
+		</div>
+	</div>
+</section>
+<style>
+	.error{
+		margin-top: 10px;
+		border: 1px solid grey;
+		border-radius: 5px;
+		margin-left: auto;
+		margin-right: auto;
+	}
+	.errorlist{
+		list-style-type: none; 
+	}
+	.errorslist ul{
+		color: red;
+	}
+	.banner{
+		margin-bottom: 20px;
+	}
+	.banner .card{
+		width: 100%;
+		height: 200px;
+		position: relative;
+	}
+	.banner .card img{
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		filter: brightness(60%);
+	}
+	.banner .card .img, .banner .card .card-body{
+		position: absolute;
+	}
+	.banner .card-body{
+		bottom: 0;
+		font-size: 50px;
+		margin-left: 75px;
+	}
+	.contact-details{
+		display: flex;
+		justify-content: center;
+		margin-left: auto;
+		margin-right: auto;
+	}
+	.social-media a{
+		padding: 10px;
+	}
+	.contact-info a{
+		color: black;
+		text-decoration: none;
+	}
+	.contact-info a:hover{
+		color: blue;
+	}
+	.contact-form textarea{
+		height: 100px;
+	}
+	.contact-form input, textarea{
+		padding: 10px;
+		width: 100%;
+	}
+	.main-info-text{
+			font-size: 25px;
+			font-weight: 10;
+		}
+	@media(min-width: 768px){
+		.contact-details{
+			padding-left: 10px;
+		}
+		.contact-form{
+			padding-right: 10px;
+		}
+	}
+	@media(max-width: 992px){
+		.main-info-text{
+			font-size:23px;
+		}
+	}
+	@media(max-width: 768px){
+		.banner .card-body{
+			margin-left: 15px;
+		}
+	}
+</style>
+{%endblock client%}

@@ -1,0 +1,58 @@
+{% extends 'admin.html' %} {%block admin_title%}Sectors{%endblock admin_title%}
+{%block admin%}
+<section class="container">
+	{%if request.user.role == 'Admin' or request.user.role == 'Manager' %}
+	<a class="nav-link d-flex" href="{% url 'sectorsCreate_admin' %}">
+		<i class="far fa-plus-square fa-3x"></i>
+	</a>
+	<p class="">Create A New Sector</p>
+	<hr>
+	{%endif%}
+	{%if messages%}
+		{%for message in messages %}
+			<div class="bg-info">{{message}}</div>
+		{%endfor%}
+	{%endif%}
+	{%if sectors %}
+		<div class="table-responsive px-1">
+			<table class="table sectors-table">
+				<thead>
+					<tr>
+						<th scope="col">#</th>
+						<th scope="col">Title</th>
+						<th scope="col">Description</th>
+						<th scope="col">Created By</th>
+						{%if request.user.role == 'Admin' or request.user.role == 'Manager' %}
+						<th scope="col">Update</th>
+						<th scope="col">Delete</th>
+						{%endif%}
+					</tr>
+				</thead>
+				<tbody>
+					{%for sector in sectors%}
+						<tr>
+							<th scope="row">{{forloop.counter}}</th>
+							<td>{{sector.title|capfirst}}</td>
+							<td>
+								<p class="sector-description-more">{{sector.description|capfirst}}</p>
+							</td>
+							<td>{{sector.created_by|capfirst}}</td>
+							{%if request.user.role == 'Admin' or request.user.role == 'Manager' %}
+							<td><a href="{%url 'sectorsUpdate_admin' pk=sector.id%}" class="btn btn-primary">Update</a></td>
+							<td><a href="{%url 'sectorsDelete_admin' pk=sector.id%}" class="btn btn-danger">Delete</a></td>
+							{%endif%}
+					{% endfor%}
+				</tbody>
+			</table>
+		</div>
+	{%else%}
+		{% include 'base/components/none.html' with object='sectors'%}
+	{%endif%}
+
+</section>
+<script>
+	$(document).ready(function(){
+		$('.sectors-table').DataTable();
+	})
+</script>
+{%endblock admin%}

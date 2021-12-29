@@ -1,0 +1,75 @@
+{% extends 'admin.html' %}{%block admin_title%}Services List{%endblock admin_title%}
+{% block admin%}
+<section class="container">
+	{%if request.user.role == 'Admin' or request.user.role == 'Manager' %}
+	<a class="nav-link d-flex" href="{% url 'servicesCreate_admin' %}">
+		<i class="far fa-plus-square fa-3x"></i>
+	</a>
+	<p class="">Create A New Service</p>
+	<hr>
+	{%endif%}
+	{%if messages%}
+		{%for message in messages %}
+			<div class="bg-info">{{message}}</div>
+		{%endfor%}
+	{%endif%}
+	{%if services%}
+	<div class="table-responsive px-1">
+		<table class="table services-table" id="servicelist-table">
+			<thead>
+				<tr>
+					<th scope="col">#</th>
+					<th scope="col">Feature</th>
+					<th scope="col">Title</th>
+					<th scope="col">Description</th>
+					<th scope="col">Created By</th>
+					{%if request.user.role == 'Admin' or request.user.role == 'Manager' %}
+					<th scope="col">Update</th>
+					<th scope="col">Delete</th>
+					{%endif%}
+				</tr>
+			</thead>
+			<tbody>
+				{%for service in services%}
+				<tr>
+					<th scope="row">{{forloop.counter}}</th>
+					<td><div class="servicelist-image"><img src="{{service.image.url}}"></div></td>
+					<td>{{service.title|capfirst}}</td>
+					<td>
+						<p class="service-description-more">{{service.description|capfirst}}</p>
+					</td>
+					<td>{{service.created_by|capfirst}}</td>
+					{%if request.user.role == 'Admin' or request.user.role == 'Manager' %}
+					<td><a href="{% url 'servicesUpdate_admin' pk=service.id%}" class="btn btn-primary">Update</a></td>
+					<td><a href="{% url 'servicesDelete_admin' pk=service.id%}" class="btn btn-danger">Delete</a></td>
+					{%endif%}
+				</tr>
+				{%endfor%}
+			</tbody>
+		</table>
+	</div>
+	{%else%}
+		{% include 'base/components/none.html' with object='services'%}
+	{%endif%}
+</section>
+<script>
+	$(document).ready(function(){
+		$('.services-table').DataTable();
+	});
+
+</script>
+<style>
+	.servicelist-image{
+		width: 200px;
+		height: 200px;
+	}
+	.servicelist-image img{
+		width: 100%;
+		height: 200px;
+		border-radius: 5px;
+		border: .5px solid grey;
+		object-fit: cover;
+		display: block;
+	}
+</style>
+{%endblock admin%}

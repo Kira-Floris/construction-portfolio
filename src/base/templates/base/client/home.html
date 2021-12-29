@@ -1,0 +1,447 @@
+{%extends 'client.html'%}
+{%load static%}
+{%block title%}Home{%endblock title%}
+{%block client%}
+<section class="intro">
+	<div class="swiper mySwiper">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide" id="slide1">
+            <div class="card">
+                <div class="card-img">
+                    <img alt="first slide" src="{%static 'images/front/begin.jpg'%}">
+                </div>
+                <div class="card-img-overlay container">
+	                <div class="card-body content-body text-light row">
+	                	<div class="content-container py-5 col-xl-6 col-lg-6 col-12">
+		                    <div class="card-title h1">{{webinfo.name}}</div>
+		                    <p>
+		                    	<span class="webinfo-name">{{webinfo.name|capfirst}}</span> is a construction company created to provide a variety of services in the field of construction.
+		                    </p>
+	                    </div>
+	                    <div class="image-container col-xl-6 col-lg-6 col-md-6 col-12">
+	                    	<img src="{%static 'images/front/begin.jpg'%}" alt="first slide">
+	                    </div>
+	                </div>
+	            </div>
+            </div>
+        </div>
+        <div class="swiper-slide" id="slide2">
+            <div class="card">
+                <div class="card-img">
+                    <img alt="first slide" src="{%static 'images/front/design.jpg'%}">
+                </div>
+                <div class="card-img-overlay container">
+	                <div class="card-body content-body text-light row">
+	                	<div class="content-container py-5 col-xl-6 col-lg-6 col-12">
+		                    <div class="card-title h1">
+		                    	You have a dream house?</div>
+		                    <p>
+		                    	At <span class="webinfo-name">{{webinfo.name|capfirst}}</span>, using up-to-date technologies, our team of designers designs your dream house.
+		                    </p>
+	                    </div>
+	                    <div class="image-container col-xl-6 col-lg-6 col-md-6 col-12">
+	                    	<img src="{%static 'images/front/design.jpg'%}" alt="first slide">
+	                    </div>
+	                </div>
+	            </div>
+            </div>
+        </div>
+        <div class="swiper-slide" id="slide3">
+            <div class="card">
+                <div class="card-img">
+                    <img alt="first slide" src="{%static 'images/front/materials.jpg'%}">
+                </div>
+                <div class="card-img-overlay container">
+	                <div class="card-body content-body text-light row">
+	                	<div class="content-container py-5 col-xl-6 col-lg-6 col-12">
+		                    <div class="card-title h1">
+		                    	Machinery & Equipment
+		                    </div>
+		                    <p>
+		                    	With our range of supply contacts, we help in finding the machinery and equipments needed to bring your dream house to reality. 
+		                    </p>
+	                    </div>
+	                    <div class="image-container col-xl-6 col-lg-6 col-md-6 col-12">
+	                    	<img src="{%static 'images/front/materials.jpg'%}" alt="first slide">
+	                    </div>
+	                </div>
+	            </div>
+            </div>
+        </div>
+        <div class="swiper-slide" id="slide4">
+            <div class="card">
+                <div class="card-img">
+                    <img alt="first slide" src="{%static 'images/front/construction.jpg'%}">
+                </div>
+                <div class="card-img-overlay container">
+	                <div class="card-body content-body text-light row">
+	                	<div class="content-container py-5 col-xl-6 col-lg-6 col-12">
+		                    <div class="card-title h1">
+		                    	Construction
+		                    </div>
+		                    <p>
+		                    	We also supervise the construction of your house/property to the end.
+		                    </p>
+	                    </div>
+	                    <div class="image-container col-xl-6 col-lg-6 col-md-6 col-12">
+	                    	<img src="{%static 'images/front/construction.jpg'%}" alt="first slide">
+	                    </div>
+	                </div>
+	            </div>
+            </div>
+        </div>
+      </div>
+      <div class="swiper-pagination"></div>
+    </div>
+</section>
+<section class="services container">
+	<p class="h3">Our Services</p>
+	<hr>
+	<p style="font-size: 18px; font-weight: 500;" class="text-secondary">What We Offer</p>
+	<div class="swiper service_swiper">
+      <div class="swiper-wrapper">
+      	{%for service in services%}
+        <div class="swiper-slide service-slide">
+          <img src="{{service.image.url}}" alt="{{service.title}}"/>
+          <p class="h2 text-light">{{service.title|capfirst}}</p>
+        </div>
+        {%endfor%}
+      </div>
+      <div class="swiper-button-next"></div>
+      <div class="swiper-button-prev"></div>
+    </div>
+    <a href="{%url 'services_client'%}" class="btn btn-primary my-5"><p class="h5">More Details</p></a>
+</section>
+<section class="projects">
+	<p class="h3">Our Projects</p>
+	<hr>
+	<p style="font-size: 18px; font-weight: 500;" class="text-secondary">Our Latest Projects</p>
+	<div>
+		<ul class="d-flex justify-content-center list-unstyled list">
+			<li class="list active my-3 mx-auto link-secondary cursor-pointer" data-target="all">All</li>
+			{%for sector in sectors%}
+			<li class="list my-3 mx-auto link-secondary" data-target="{{sector|lower}}">{{sector|capfirst}}</li>
+			{%endfor%}
+		</ul>
+		<div class="projects-list row">
+			{%for project in projects%}
+			<div class="card project-card px-0 col-auto m-2" id="{{project.sector|lower}}">
+				<img src="{{project.feature.url}}" alt="{{project.title}}" class="card-img-top">
+				<div class="card-body project-card-body w-100">
+					<p class="h3 card-title w-100">{{project.title|capfirst}}</p>
+					<p class="card-text w-100">{{project.sector|capfirst}}</p>
+				</div>
+			</div>
+			{%endfor%}
+		</div>
+	</div>
+	<a href="{%url 'projects_client'%}" class="btn btn-primary my-3"><p class="h5">More Projects</p></a>
+</section>
+<section class="our-team container">
+	<p class="h3">Our Team</p>
+	<hr>
+	<div class="users-list swiper">
+		<div class="swiper-wrapper">
+			{%for user in users%}
+			<div class="swiper-slide">
+				<div>
+					<div class="user-profile">
+						<img src="{{user.profile.url}}" alt="profile for {{user.first_name}}, {{user.last_name}}">
+					</div>
+					<div class="user-info">
+						<p class="user-name"><b>{{user.first_name|capfirst}}, {{user.last_name|capfirst}}</b></p>
+						<span class="user-position">{{user.position|capfirst}}</span>
+					</div>
+				</div>
+			</div>
+			{%endfor%}
+		</div>
+	</div>
+	<a href="{%url 'about-us'%}" class="btn btn-primary my-3"><p class="h5">More Details About Our Team</p></a>
+</section>
+<script>
+	$(window).ready(function(){
+	$('.projects-list .card').slice(0,6).show()
+	$('.projects-list .card').slice(6,$('.projects-list .card').length).hide();
+	var swiper = new Swiper(".mySwiper", {
+		pagination: {
+			el: ".swiper-pagination",
+			dynamicBullets: true,
+			clickable: true,
+		},
+		autoplay: {
+              delay: 9000,
+              disableOnInteraction: true,
+        },
+	});
+	var swiper = new Swiper(".service_swiper", {
+        effect: "coverflow",
+        centeredSlides: true,
+        slidesPerView: "auto",
+        grabCursor: true,
+        loop:true,
+        coverflowEffect: {
+          rotate: 50,
+          stretch: 0,
+          depth: 100,
+          modifier: 1,
+          slideShadows: true,
+        },
+        autoplay: {
+              delay: 4000,
+              disableOnInteraction: false,
+        },
+        navigation: {
+        	nextEl: ".swiper-button-next",
+        	prevEl: ".swiper-button-prev",
+        }
+      });
+	var swiper_users = new Swiper(".users-list",{
+		slidesPerView: "auto",
+		spaceBetween: 30,
+		centeredSlides: true,
+		grabCursor: true,
+		loop: true,
+		effect: "coverflow",
+		coverflowEffect: {
+			rotate: 0,
+			stretch: 0,
+			depth: 0,
+			modifier: 1,
+			slideShadows: true,
+		},
+		autoplay: {
+              delay: 4500,
+              disableOnInteraction: false,
+        },
+	})
+	})
+	$(document).ready(function(){
+		var hoverOrClick = function(){
+			$('.projects-list .card-body').attr('style', 'display: none!important');
+			$('.projects-list img').attr('style', 'filter: brightness(100%)');
+			$(this).children('.card-body').attr('style', 'display: inline !important; text-align: left; color: white;');
+			$(this).children('img').attr('style', 'filter: brightness(50%);');
+		}
+		$('.project-card').click(hoverOrClick).hover(hoverOrClick);
+		$('.list li').click(function(e){
+			$(this).addClass('active').siblings().removeClass('active');
+			$('projects-list').children('.card').show();
+			var targetedItems = $(this).data('target');
+			if(targetedItems=="all"){
+				$('.projects-list').children('.card').slice(0,6).show();
+				$('.projects-list').children('.card').slice(6, $('.projects-list .card').length).hide();
+			}
+			else{
+				$('.projects-list').children('.card').hide();
+				$('[id="'+targetedItems+'"').slice(0,6).show();
+				$('[id="'+targetedItems+'"').slice(6, $('.projects-list .card').length).hide();
+			}
+		})
+	})
+</script>
+<style>
+	section{
+		margin-bottom: 50px;
+	}
+	.intro{
+		position: relative;
+		height: 600px;
+		margin:0;
+	}
+	.intro .content-container .card-title{
+		font-size: 50px;
+		/*color: #F2F6F7;*/
+	}
+	.intro .content-container p{
+		font-size: 30px;
+		font-weight: bold;
+		line-height: 1.6;
+	} 
+	.card{
+		width: 100%;
+		height: 100%;
+	}
+	.card-img img{
+		width: 100%;
+		height: 100%;
+		filter: brightness(40%);
+	}
+	.content-body{
+		min-height: 100%;
+		display: flex;
+		align-items: center;
+	}
+	.swiper-pagination-bullet{
+		font-size: 12px;
+		width: 15px;
+		height: 15px;
+		opacity: 1;
+		background-color: rgb(255,255,255);
+	}
+	.swiper-pagination-bullet-active{
+		width: 20px;
+		background: #007aff;
+	}
+	.swiper {
+        width: 100%;
+        height: 100%;
+      }
+
+	.swiper-slide {
+		font-size: 18px;
+		background: #fff;
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+
+		/* Center slide text vertically */
+		display: -webkit-box;
+		display: -ms-flexbox;
+		display: -webkit-flex;
+		display: flex;
+		-webkit-box-pack: center;
+		-ms-flex-pack: center;
+		-webkit-justify-content: center;
+		justify-content: center;
+		-webkit-box-align: center;
+		-ms-flex-align: center;
+		-webkit-align-items: center;
+		align-items: center;
+	}
+
+	.swiper-slide img {
+		display: block;
+		width: 100%;
+		height: 600px;
+		object-fit: cover;
+	}
+	.image-container{
+		width: 200px;
+		height: 200px;
+		margin-left: auto;
+		margin-right: auto;
+	}
+	.image-container img{
+		width: 100%;
+		height: 100%;
+		border-radius: 20px;
+		border: 1px solid white;
+		opacity: .9;
+	}
+
+	/*Services*/
+	.services, .projects, .our-team{
+		text-align: center;
+		margin-top: 20px;
+	}
+	.service_swiper .swiper-slide{
+		width: 350px;
+		height: 350px;
+		background-position: center;
+		background-size: cover;
+	}
+	.service_swiper .swiper-slide img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        filter: brightness(50%);
+      }
+    .service-slide{
+    	position: relative;
+    }
+    .service-slide img, .service-slide p{
+    	position: absolute;
+    }
+
+    /*our team*/
+    .users-list .swiper-slide{
+    	width: auto!important;
+    	border-radius: 10px;
+    	padding: 10px;
+    	margin-bottom: 10px;
+    	margin-top: 10px;
+    	box-shadow: 2px 5px 4px 5px #C0BCBC;
+    }
+    .users-list .swiper-slide-active{
+    	transform: scale(1.1)!important;
+    	margin: 30px;
+    }
+    .users-list .user-profile{
+    	width: 300px!important;
+    	height: 300px!important;
+    }
+    .users-list img{
+    	width: 100%;
+    	height: 100%;
+    	object-fit: cover;
+    	border-radius: 10px;
+    }
+    .user-position{
+    	font-size: 30px;
+    	color: #6E6462;
+    	margin-top: 0;
+    }
+    .users-list .swiper-slide-shadow-left, .users-list .swiper-slide-shadow-right{
+    	background-image: none;
+    }
+
+    /*Projects*/
+    .projects{
+    	margin-left: 5px;
+    	margin-right: 5px;
+    }
+    .list li{
+    	cursor: pointer;
+    }
+    .projects ul li.active{
+    	text-decoration: underline;
+    	color: #007bff;
+    	font-size: 18px;
+    }
+    .projects-list{
+    	display: flex;
+    	justify-content: center;
+    	margin-left: auto;
+    	margin-right: auto;
+    }
+    .project-card{
+    	width:350px;
+    	height: 200px;
+    	margin: 0;
+    	cursor: pointer;
+    }
+    .project-card img{
+    	object-fit: cover;
+    	height: 100%;
+    	width: 100%;
+    }
+    .project-card-body{
+    	display: none!important;
+    	cursor: pointer;
+    }
+    .project-card .card-body{
+    	position: absolute;
+    }
+	@media(min-width: 992px){
+		.image-container{
+			width: 300px;
+			height: 300px;
+		}
+	}
+	@media(max-width: 768px){
+		.swiper-slide{
+			font-size: 15px;
+		}
+		.image-container{
+			display: none;
+		}
+		.projects-list .card-title{
+			font-size: 15px;
+		}
+		.projects-list .card-text{
+			font-size: 12px;
+		}
+	}
+</style>
+{%endblock client%}

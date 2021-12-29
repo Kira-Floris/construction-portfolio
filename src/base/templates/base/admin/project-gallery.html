@@ -1,0 +1,53 @@
+{% extends 'admin.html'%}
+{% block admin_title%}Project | Gallery{%endblock admin_title%}
+{%block admin%}
+<section class="container">
+	{%if messages%}
+		{%for message in messages %}
+			<div class="bg-info">{{message}}</div>
+		{%endfor%}
+	{%endif%}
+	 <form method="post" enctype="multipart/form-data" action="">
+	 	{%csrf_token%}
+	 	{{form.management_form}}
+	 	{{form.non_form_errors}}
+	 	<p class="h1">Image Gallery for <span class="text-info">{{project.title|capfirst}}</span></p>
+	 	{% for image_form in form.forms %}
+		 	<hr>
+	 		{%if image_form.instance.id %}
+	 		<div class="image-container">
+	 			<img src="{{image_form.instance.image.url}}" alt="{{project.title}}">
+	 		</div>
+	 		{%else%}
+	 			<h5>
+	 			{%if form.forms|length > 1%}
+	 				add another image
+	 			{%else%}
+	 				add an image
+	 			{%endif%}
+	 			</h5>
+	 		{%endif%}
+		 	{%for hidden_field in image_form.hidden_fields%}
+		 		{{hidden_field.errors}}
+		 	{%endfor%}
+		 	<table>
+		 		{{image_form.as_table}}
+		 	</table>
+	 	{% endfor%}
+	 	<hr>
+	 	<p><button type='submit' value="Update Gallery" class="btn btn-primary">Update Collection</button></p>
+	 </form>
+</section>
+<style>
+	.image-container{
+		width: 200px;
+		height: 200px;
+	}
+	.image-container img{
+		width: 100%;
+		height: 200px;
+		border: 1px solid grey;
+		border-radius: 10px;
+	}
+</style>
+{%endblock admin%}

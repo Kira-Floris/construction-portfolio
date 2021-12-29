@@ -1,0 +1,9 @@
+{% extends 'admin.html' %}{%block admin_title%}User | Delete{%endblock admin_title%} {% block admin %}
+<div class="container pt-5">
+    <form method="post">
+        {% csrf_token %}
+        <p class="h2">Are u sure you want to Delete the user <span class="bold"><u><b>{{user.username|upper}}</b></u></span>?<span class="text-danger"> Elements associated to this user won't be deleted.</span></p>
+        <button type="submit" class="btn btn-danger">Am sure!</button>
+        <a type="button" class="btn btn-primary" id="back" href="{% url 'users'%}">Cancel</a>
+    </form>
+</div> {% endblock admin %}
