@@ -4,7 +4,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, FormView
 from django.views.generic.detail import SingleObjectMixin
 from django.urls import reverse_lazy, reverse
-from django.core.mail import send_mail, EmailMessage
+from django.core.mail import send_mail, EmailMessage,BadHeaderError
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
