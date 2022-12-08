@@ -1,4 +1,4 @@
-{% extends 'admin.html' %}{%block admin_title%}Services List{%endblock admin_title%}
+{% extends 'admin.html' %}{% load static %}{%block admin_title%}Services List{%endblock admin_title%}
 {% block admin%}
 <section class="container">
 	{%if request.user.role == 'Admin' or request.user.role == 'Manager' %}

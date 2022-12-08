@@ -38,3 +38,8 @@ class TypesForm(ModelForm):
 	class Meta:
 		model = Types
 		exclude = ['created_by']
+
+class TeamForm(ModelForm):
+	class Meta:
+		model = Team
+		fields = '__all__'

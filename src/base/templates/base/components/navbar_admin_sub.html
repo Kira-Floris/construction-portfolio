@@ -1,6 +1,7 @@
 {% load static%}
 {%url 'dashboard' as dashboard%}
 {%url 'users' as users%}
+{%url 'teamLList_admin' as team%}
 {%url 'webinfo' as websiteinfo%}
 {%url 'projectsList_admin' as projects%}
 {%url 'servicesList_admin' as services%}
@@ -28,8 +29,14 @@
     {%if request.user.role == 'Admin'%}
     <li class="nav-item {% if request.path == users %}active{%endif%}">
       <a href="{%url 'users'%}" class="nav-link" title="Website Users" data-bs-toggle="tooltip" data-bs-placement="right">
-        <i class="fas fa-users"></i>
-        <span class="links_name">People</span>
+        <i class="fas fa-people-carry"></i>
+        <span class="links_name">Staff</span>
+      </a>
+    </li>
+    <li class="nav-item {% if request.path == team %}active{%endif%}">
+      <a href="{%url 'teamList_admin'%}" class="nav-link" title="Team" data-bs-toggle="tooltip" data-bs-placement="right">
+        <i class="fas fa-user-tie"></i>
+        <span class="links_name">Team</span>
       </a>
     </li>
     <li class="nav-item {% if request.path == websiteinfo %}active{%endif%}">

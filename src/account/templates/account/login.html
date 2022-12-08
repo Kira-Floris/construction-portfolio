@@ -1,9 +1,11 @@
 {%extends 'client.html'%}
 {%block title%}Login{%endblock title%}
 {%block client%}
-<section class="d-flex justify-content-center login-form w-100 mx-sm-0 my-4">
+<section class="d-flex justify-content-center login-form w-100 mx-sm-0 my-5 py-5">
 	<div>
-		<a href="{%url 'home'%}" class="text-center">Back to Home Page</a>
+		<p class="text-center">
+			<a href="{%url 'home'%}" class="text-center">Back to Home Page</a>
+		</p>
 		<p class="h1 text-center">Login</p>
 		<hr>
 		{%if messages%}

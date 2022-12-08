@@ -43,7 +43,7 @@ def home(request):
 	return render(request, 'base/client/home.html', context)
 
 def about_us(request):
-	users = User.home_users.all()
+	users = Team.objects.all()
 	context = {
 		'users': users,
 	}
@@ -103,6 +103,7 @@ def dashboard(request):
 	admin = User.objects.filter(role='Admin').count()
 	managers = User.objects.filter(role='Manager').count()
 	staff = User.objects.filter(role='Staff').count()
+	team = Team.objects.all().count()
 	users = {
 		'all': all_users,
 		'admins': admin,
@@ -115,8 +116,50 @@ def dashboard(request):
 		'sectors': sectors,
 		'types': types,
 		'users': users,
+		'team': team,
 	}
 	return render(request, 'base/admin/dashboard.html', context)
+
+
+"""
+Team views for admin
+"""
+
+@method_decorator(login_required(login_url=LOGIN_URL), name='dispatch')
+@method_decorator(role_required(allowed_roles=admin_level), name='dispatch')
+class TeamList(ListView):
+	model = Team
+	template_name = 'base/admin/team.html'
+	context_object_name = 'team'
+	fields = '__all__'
+
+@method_decorator(login_required(login_url=LOGIN_URL), name='dispatch')
+@method_decorator(role_required(allowed_roles=admin_level), name='dispatch')
+class TeamCreate(CreateView):
+	model = Team
+	template_name = 'base/admin/components/add_team.html'
+	form_class = TeamForm
+	success_url = reverse_lazy('teamList_admin')
+
+	def form_valid(self, form):
+		return super(TeamCreate, self).form_valid(form)
+
+@method_decorator(login_required(login_url=LOGIN_URL), name='dispatch')
+@method_decorator(role_required(allowed_roles=admin_level), name='dispatch')
+class TeamUpdate(UpdateView):
+	model = Team
+	template_name = 'base/admin/components/add_team.html'
+	form_class = TeamForm
+	pk_url_kwarg = 'pk'
+	success_url = reverse_lazy('teamList_admin')
+
+@method_decorator(login_required(login_url=LOGIN_URL), name='dispatch')
+@method_decorator(role_required(allowed_roles=admin_level), name='dispatch')
+class TeamDelete(DeleteView):
+	model = Team
+	template_name = 'base/admin/components/delete_team.html'
+	pk_url_kwarg = 'pk'
+	success_url = reverse_lazy('teamList_admin')
 
 """
 Services views for admin

@@ -56,6 +56,18 @@
           </div>
         </div>
       </div>
+      <div class="col-auto card border-dark rounded m-3 text-center" style="width: 15rem;">
+        <div class="card-body">
+          <h5 class="card-title h1">Team</h5>
+          <h6 class="card-subtitle mb-2 text-muted font-weight-bold h1" style="font-size: 75px;">{{team}}</h6>
+          <div class="row d-flex justify-content-center">
+            <a href="{%url 'teamList_admin'%}" class="card-link col-auto p-0">All Team Members</a>
+            {%if request.user.role == "Admin"%}
+            <a href="{%url 'teamCreate_admin'%}" class="card-link col-auto p-0">New Team Member</a>
+            {%endif%}
+          </div>
+        </div>
+      </div>
     </div>
     {%if request.user.role == 'Admin' or request.user.role == 'Manager' %}
     <div class="container d-flex justify-content-center">
@@ -93,7 +105,35 @@
 <div class="accordion accordion-flush" id="accordionFlushExample">
   <h1 class="text-center">Documentation</h1>
   <h3 class="text-center documentation-headers">Others</h3>
-  {%if request.user.role == "Admin" or request.user.role == "Manager"%}
+
+
+  <div class="accordion-item">
+    <h2 class="accordion-header border rounded" id="flush-headingTen">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTen" aria-expanded="false" aria-controls="flush-collapseTen">
+        Team Members Documentation
+      </button>
+    </h2>
+    <div id="flush-collapseTen" class="accordion-collapse collapse" aria-labelledby="flush-headingTen" data-bs-parent="#accordionFlushExample">
+      <div class="accordion-body">
+        <h4 class="text-center text-danger">This option is only available for Admin roles.</h4>
+        <div>
+          <div>
+            <p><span class="documentation-titles">Create: </span>Using the navigation bar, click on the <a href="{%url 'teamList_admin'%}">Team icon</a>. On the top left, click on the <a href="{%url 'teamCreate_admin'%}">plus/add icon</a> to create a new member. Follow the link, fill the form and submit.
+              <span class="inner-docs">
+                <p class="bold">Members created here are viewed in the <a href="{%url 'about-us'%}">About Us</a> page.</p>
+              </span>
+            </p>
+            <p><span class="documentation-titles">Update: </span>To update a member, look for the member you want to update in the <a href="{%url 'teamList_admin'%}">list</a>. On the far right, there is a button labelled <span class="text-primary">Update</span>, click on it to follow the link, make your changes and submit.</p>
+            <p><span class="documentation-titles">Delete: </span>To delete a member, look for the member you want to delete in the <a href="{%url 'teamList_admin'%}">list</a>. On the far right, there is a button labelled <span class="text-danger">Delete</span>, click on it to follow the link, you will be prompted a question whether to delete or not.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+
   <div class="accordion-item">
     <h2 class="accordion-header border rounded" id="flush-headingOne">
       <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
@@ -152,8 +192,6 @@
       </div>
     </div>
   </div>
-  {%endif%}
-  {% if request.user.role == "Admin" or request.user.role == "Manager" or request.user.role == "Staff" %}
   <div class="accordion-item">
     <h2 class="accordion-header border rounded" id="flush-headingFour">
       <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFour" aria-expanded="false" aria-controls="flush-collapseFour">
@@ -190,8 +228,6 @@
       </div>
     </div>
   </div>
-  {%endif%}
-  {%if request.user.role == "Admin"%}
   <h3 class="text-center documentation-headers">Website Info</h3>
   <div class="accordion-item">
     <h2 class="accordion-header border rounded" id="flush-headingFive">
@@ -235,7 +271,6 @@
             <p>
               <span class="documentation-titles">Update/View: </span>Using the navigation bar, click on <a href="{%url 'users'%}">Users</a> and search for the user you want to update. Click on their username or on the button at the far end labelled <span class="text-primary">Update</span>. It will redirect you to a limited form to make changes to a users settings.
               <div class="inner-docs">
-                <p class="bold">Only users with Display turned true are viewed in the <a href="{%url 'about-us'%}">About Us</a> page.</p>
                 <p class="bold">Only users with verified emails and is_staff turned true  are allowed to login the system.</p>
               </div>
             </p>
@@ -248,8 +283,6 @@
       </div>
     </div>
   </div>
-  {%endif%}
-  {%if request.user.role == "Admin" or request.user.role == "Manager" or request.user.role == "Staff"%}
   <h3 class="text-center documentation-headers">Profile</h3>
   <div class="accordion-item">
     <h2 class="accordion-header border rounded" id="flush-headingSeven">
@@ -262,10 +295,10 @@
         <div>
           <div>
             <p>
-              <span class="documentation-titles">Update/View: </span>Using the navigation bar, click on your <a href="{%url 'profile'%}">profile</a> and click profile. Make changes to your profile and submit.
+              <span class="documentation-titles">Update/View: </span>Using the navigation bar, click on your <a href="{%url 'profile'%}">profile</a> at the bottom of the navigation, and click profile. Make changes to your profile and submit.
             </p>
             <p>
-              <span class="documentation-titles">Change Password: </span>Using the navigation bar, click on your <a href="{%url 'profile'%}">profile</a> and click profile. At the bottom, look for a button labelled <span class="text-secondary bold">Change Password</span> and click on it. Change the password and submit.
+              <span class="documentation-titles">Change Password: </span>Using the navigation bar, click on your <a href="{%url 'profile'%}">profile</a> at the bottom of the navigation, and click profile. At the bottom, look for a button labelled <span class="text-secondary bold">Change Password</span> and click on it. Change the password and submit.
             </p>
 
           </div>
@@ -273,7 +306,6 @@
       </div>
     </div>
   </div>
-  {%endif%}
 </div>
 <style>
 	.btn{

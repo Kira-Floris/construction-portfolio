@@ -34,9 +34,9 @@ class UserUpdateForm(ModelForm):
 class AdminUpdateForm(ModelForm):
 	class Meta:
 		model = User
-		fields = ['profile', 'email', 'username', 'first_name', 'last_name', 'bio', 'role', 'position', 'display', 'is_active', 'is_staff', 'is_superuser', 'email_verified']
+		fields = ['profile', 'email', 'username', 'first_name', 'last_name', 'bio', 'role', 'is_active', 'is_staff', 'is_superuser', 'email_verified']
 
 class UserAdminForm(ModelForm):
 	class Meta:
 		model = User
-		fields = ['role', 'position', 'display', 'is_active', 'is_staff', 'is_superuser', 'email_verified']
+		fields = ['role', 'is_active', 'is_staff', 'is_superuser', 'email_verified']

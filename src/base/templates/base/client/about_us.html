@@ -35,14 +35,14 @@
 				{%for user in users%}
 				<div class="user-info">
 					<div class="user-profile">
-						<img src="{{user.profile.url}}" alt="profile for {{user.first_name|capfirst}}, {{user.last_name|capfirst}}">
+						<img src="{{user.profile.url}}" alt="profile for {{user.names}}">
 					</div>
 					<p class="h1 display-7">Biography</p>
-					<p class="main-info-text main-info-text-bio"><i class="fas fa-quote-left"></i> {{user.bio}}<i class="fas fa-quote-right"></i></p>
+					<p class="main-info-text main-info-text-bio"><i class="fas fa-quote-left"></i> {{user.bio}} <i class="fas fa-quote-right"></i></p>
 					<div class="user-more w-100">
 						<div class="user-names w-50">
 							<b>
-								{{user.first_name|capfirst}}, {{user.last_name|capfirst}}
+								{{user.names|capfirst}}
 							</b>
 						</div>
 						<div class="user-position w-50">

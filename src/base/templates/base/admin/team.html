@@ -1,0 +1,95 @@
+{% extends 'admin.html' %}
+{%load static%}
+{% block admin_title%}Team{%endblock admin_title%}
+{% block admin%}
+<section>
+	<a class="d-flex" href="{% url 'teamCreate_admin' %}">
+		<i class="far fa-plus-square fa-3x"></i>
+	</a>
+	<p class="">Add A New Team</p>
+	<hr>
+	{%if messages%}
+		{%for message in messages %}
+			<div class="error bg-info">{{message}}</div>
+		{%endfor%}
+	{%endif%}
+	{%if team%}
+	<div class="block-around">
+	<div class="table-responsive px-1">
+		<table class="table table-hover projects-table" cellspacing="0" width="100%">
+			<thead>
+				<tr>
+					<th scope="col">#</th>
+					<th scope="col">Profile</th>
+					<th scope="col">Names</th>
+					<th scope="col">Position</th>
+					<th scope="col">Update</th>
+					<th scope="col">Delete</th>
+				</tr>
+			</thead>
+			<tbody>
+				{%for user in team%}
+					<tr>
+						<th scope="row">{{forloop.counter}}</th>
+						<td>
+							<div class="projectlist-image">
+								{% if user.profile %}
+								<img src="{{user.profile.url}}" alt='{{user.names}}'>
+								{%else%}
+								<img src="{%static 'images/default.jpg'%}">
+								{%endif%}
+							</div></td>
+						<td>
+							<a href="{%url 'teamUpdate_admin' pk=user.id %}">
+							{{user.names|capfirst}}
+							</a></td>
+						<td>{{user.position|capfirst}}</td>
+						<td><a href="{% url 'teamUpdate_admin' pk=user.id%}" class="btn btn-primary">Update</a></td>
+						<td>
+							<a href="{%url 'teamDelete_admin' pk=user.id%}" class="btn btn-danger">Delete</a>
+						</td>
+
+				{% endfor%}
+			</tbody>
+		</table>
+	</div>
+	</div>
+	{%else%}
+		{%include 'base/components/none.html' with object='team'%}
+	{%endif%}
+</section>
+<script>
+	$(document).ready(function(){
+		$('.projects-table').DataTable();
+	});
+</script>
+<style>
+	.block-around{
+		height: auto;
+	}
+	.projectlist-table{
+		width: 100%;
+	}
+	.projectlist-image{
+		width: 200px;
+		height: 200px;
+	}
+	.projectlist-image img{
+		width: 100%;
+		height: 200px;
+		border-radius: 5px;
+		border: .5px solid grey;
+		object-fit: cover;
+		display: block;
+	}
+	@media(max-width: 768px){
+		.projectlist-image{
+			width: 120px;
+			height: 120px;
+		}
+		.projectlist-image img{
+			height: 100px;
+		}
+	}
+</style>
+{%endblock admin%}

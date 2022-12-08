@@ -27,8 +27,6 @@
 					<th scope="col">First Name</th>
 					<th scope="col">Last Name</th>
 					<th scope="col">Role</th>
-					<th scope="col">Position</th>
-					<th scope="col">Display</th>
 					<th scope="col">Update</th>
 					<th scope="col">Delete</th>
 				</tr>
@@ -47,15 +45,13 @@
 							</div></td>
 						<td>
 							<a href="{%url 'user_update' pk=user.id %}">
-							{{user.username|capfirst}}
+							{{user.username}}
 							</a></td>
 						<td>{{user.email}}</td>
 						<td>{{user.email_verified|capfirst}}</td>
 						<td>{{user.first_name|capfirst}}</td>
 						<td>{{user.last_name|capfirst}}</td>
 						<td>{{user.role|capfirst}}</td>
-						<td>{{user.position|capfirst}}</td>
-						<td>{{user.display|capfirst}}</td>
 						<td><a href="{% url 'user_update' pk=user.id%}" class="btn btn-primary">Update</a></td>
 						<td>
 							<a href="{%url 'user_delete' pk=user.id%}" class="btn btn-danger">Delete</a>

@@ -40,7 +40,7 @@ def profile_upload_path(instance, filename):
 
 class UserObject(models.Manager):
     def get_queryset(self):
-        return super(UserObject, self).get_queryset().filter(display=True).exclude(position='Staff')
+        return super(UserObject, self).get_queryset().all()
         
 class User(AbstractUser):
     profile = models.ImageField(upload_to=profile_upload_path)
@@ -49,10 +49,8 @@ class User(AbstractUser):
     email_verified = models.BooleanField(default=False)
     first_name = models.CharField(max_length=150)
     last_name = models.CharField(max_length=150)
-    bio = models.TextField()
+    bio = models.TextField(default='...')
     role = models.CharField(max_length=15, choices=ROLES, default='Staff')
-    position = models.CharField(max_length=150, default='Staff')
-    display = models.BooleanField(default=False)
 
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=True)

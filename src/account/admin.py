@@ -9,11 +9,11 @@ class UserAdminConfig(UserAdmin):
     search_fields = ('email', 'username', 'first_name',)
     list_filter = ('email', 'username', 'first_name', 'is_active', 'is_staff')
     ordering = ('-date_joined',)
-    list_display = ('email', 'email_verified', 'profile', 'username', 'first_name', 'last_name', 'display',
+    list_display = ('email', 'email_verified', 'profile', 'username', 'first_name', 'last_name',
                     'is_active', 'is_staff', 'date_joined', 'last_login')
     fieldsets = (
         (None, {'fields': ('profile', 'email', 'username', 'first_name','last_name','password')}),
-        ('Permissions', {'fields': ('is_staff', 'is_active', 'is_superuser', 'role', 'position', 'display', 'email_verified')}),
+        ('Permissions', {'fields': ('is_staff', 'is_active', 'is_superuser', 'role','email_verified')}),
         ('Personal', {'fields': ('bio',)}),
     )
     formfield_overrides = {
@@ -22,7 +22,7 @@ class UserAdminConfig(UserAdmin):
     add_fieldsets = (
         (None, {
             'classes': ('wide',),
-            'fields': ('profile', 'email', 'first_name', 'last_name', 'bio', 'role', 'position', 'display', 'username', 'password1', 'password2', 'is_active', 'is_staff', 'is_superuser')}
+            'fields': ('profile', 'email', 'first_name', 'last_name', 'bio', 'role', 'username', 'password1', 'password2', 'is_active', 'is_staff', 'is_superuser')}
          ),
     )
 

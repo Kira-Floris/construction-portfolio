@@ -5,6 +5,22 @@ from account.models import User
 
 # Create your models here.
 
+def team_upload_path(instance, filename):
+    return 'images/team/{0}.jpeg'.format(instance.names)
+
+class Team(models.Model):
+    class Meta:
+        verbose_name_plural = 'Team'
+        verbose_name = 'Team'
+
+    profile = models.ImageField(upload_to=team_upload_path)
+    names = models.CharField(max_length=200, null=False, blank=False, unique=True)
+    position = models.CharField(max_length=200, null=False, blank=False)
+    bio = models.TextField(null=False, blank=False)
+
+    def __str__(self):
+        return self.names
+
 def services_upload_path(instance, filename):
     return 'images/services/{0}.jpeg'.format(instance.title)
 

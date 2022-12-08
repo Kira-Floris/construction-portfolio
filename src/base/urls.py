@@ -16,6 +16,11 @@ urlpatterns = [
 
 	path('dash/', views.dashboard, name='dashboard'),
 
+	path('dash/team/', views.TeamList.as_view(), name='teamList_admin'),
+	path('dash/team/add', views.TeamCreate.as_view(), name='teamCreate_admin'),
+	path('dash/team/<int:pk>', views.TeamUpdate.as_view(), name='teamUpdate_admin'),
+	path('dash/team/delete/<int:pk>', views.TeamDelete.as_view(), name='teamDelete_admin'),
+
 	path('dash/services/', views.servicesList.as_view(), name='servicesList_admin'),
 	path('dash/services/add', views.servicesCreate.as_view(), name='servicesCreate_admin'),
 	path('dash/services/<int:pk>', views.servicesUpdate.as_view(), name='servicesUpdate_admin'),
